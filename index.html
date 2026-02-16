@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .button-whatnot {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr); 
+      gap: 5px; 
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    button {
+      width: 150px;
+      height: 100px;
+      border-radius: 5px;
+      font-size: 16px;
+      background-color: white;
+      transition-duration: 0.4s;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #04AA6D;
+      color: white;
+    }
+    .clicked {
+      background-color: #f39c12;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<div class="button-whatnot" id="buttonContainer">
+  
+</div>
+
+<script>
+
+  const buttonLabels = [
+    "Follow-Up Questions",
+    "Group Voices",
+    '"I love your Honesty"',
+    "Something you learnt",
+    "Something you disagree with",
+    "Something you want to know more about",
+    "Pop Sticks",
+    "Watch a quick video",
+    "Talk to your partner",
+    "Cue to Start x3", "Outside Line in First", "Inside line in First",
+    "Cue to Start x7", "Calls on Finn Gunton for Anything", "'It's your lucky day' when someone is picked twice ",
+    "Picks a new Pop Stick after looking at it", "Closest to the foor first", "2 Week Turnaround",
+    "Disagreeing with your disagreement", "Silent Voices", "Uses last names in roll",
+    "Uses first names in roll", "Middle column first", "Left Column first"
+  ];
+
+  const centerButton = "Cue to Start (Free Space)";
+
+  
+  function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
+
+  window.onload = function() {
+    const container = document.getElementById('buttonContainer');
+    const shuffled = shuffle(buttonLabels.slice()); 
+    const buttons = [];
+
+
+    for (let i = 0; i < 12; i++) {
+      buttons.push(createButton(shuffled[i]));
+    }
+
+    
+    buttons.push(createButton(centerButton, true)); 
+
+    
+    for (let i = 12; i < 24; i++) {
+      buttons.push(createButton(shuffled[i]));
+    }
+
+
+    buttons.forEach(btn => container.appendChild(btn));
+  }
+
+  function createButton(label, isCenter = false) {
+    const button = document.createElement('button');
+    button.innerHTML = label;
+    if (!isCenter) {
+      button.onclick = () => {
+        button.classList.toggle('clicked');
+      };
+    } else {
+      button.style.backgroundColor = "#04AA6D";
+      button.style.color = "white";
+      button.disabled = true; 
+    }
+    return button;
+  }
+</script>
+
+</body>
+</html>
